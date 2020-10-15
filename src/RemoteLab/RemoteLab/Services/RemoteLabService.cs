@@ -247,7 +247,15 @@ namespace RemoteLab.Services
 
         public async Task ClearReservationAsync(String ReservationComputerName)
         {
-            await this.Db.Database.ExecuteSqlCommandAsync(@"EXECUTE [dbo].[P_remotelabdb_clear_reservation] {0}", ReservationComputerName);
+            if (Properties.Settings.Default.PerformReboots)
+            {
+                await this.Db.Database.ExecuteSqlCommandAsync(@"EXECUTE [dbo].[P_remotelabdb_clear_reservation] {0}", ReservationComputerName);
+            }
+            else
+            {
+                await this.Db.Database.ExecuteSqlCommandAsync(@"EXECUTE [dbo].[P_remotelabdb_clear_reservation_noreboot] {0}", ReservationComputerName);
+            }
+            
         }
 
         public async Task LogEventAsync(String EventName,  String UserName, String ComputerName, String PoolName, DateTime Now)

@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202003241448422_PoolSortOrder.Designer.cs">
       <DependentUpon>202003241448422_PoolSortOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007231337360_AddClearResNoreboot.cs" />
+    <Compile Include="Migrations\202007231337360_AddClearResNoreboot.designer.cs">
+      <DependentUpon>202007231337360_AddClearResNoreboot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Computer.cs" />
@@ -529,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003241448422_PoolSortOrder.resx">
       <DependentUpon>202003241448422_PoolSortOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007231337360_AddClearResNoreboot.resx">
+      <DependentUpon>202007231337360_AddClearResNoreboot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
