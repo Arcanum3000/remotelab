@@ -20,6 +20,7 @@ namespace RemoteLab.Services
         private readonly IComputerManagement CompMgmt;
         private readonly SmtpEmail Smtp;
         private readonly PasswordUtility Pw;
+        private readonly Random rand;
 
         public RemoteLabService(RemoteLabContext Db, IComputerManagement CompMgmt, SmtpEmail Smtp, PasswordUtility Pw)
         {
@@ -27,6 +28,7 @@ namespace RemoteLab.Services
             this.CompMgmt = CompMgmt;
             this.Smtp = Smtp;
             this.Pw = Pw;
+            this.rand = new Random();
 
         }
 
@@ -274,10 +276,11 @@ namespace RemoteLab.Services
 
         public async Task<Computer> GetNewReservationAsync(RemoteLabViewModel rvm)
         {
-            return await this.Db.Computers.Where(c =>
+            IQueryable<Computer> computerQuery = this.Db.Computers.Where(c =>
                     c.Pool.PoolName.Equals(rvm.Pool.PoolName, StringComparison.InvariantCultureIgnoreCase) &&
-                    c.UserName == null
-                ).OrderBy(c => c.LastModified).FirstOrDefaultAsync();
+                    c.UserName == null);
+            int selectedComp = rand.Next( 0, computerQuery.Count()-1 );
+            return computerQuery.ElementAtOrDefault( selectedComp );
         }
 
         public String GenerateRdpFileContents(string rdpFileSettings, string computer, string username,  int width = 1920, int height = 1200)
