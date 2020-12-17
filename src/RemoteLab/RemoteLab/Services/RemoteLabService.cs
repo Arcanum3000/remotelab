@@ -279,8 +279,8 @@ namespace RemoteLab.Services
             IQueryable<Computer> computerQuery = this.Db.Computers.Where(c =>
                     c.Pool.PoolName.Equals(rvm.Pool.PoolName, StringComparison.InvariantCultureIgnoreCase) &&
                     c.UserName == null);
-            int selectedComp = rand.Next( 0, computerQuery.Count()-1 );
-            return computerQuery.ElementAtOrDefault( selectedComp );
+            int selectedComp = rand.Next( computerQuery.Count() );
+            return computerQuery.AsEnumerable().ElementAtOrDefault( selectedComp );
         }
 
         public String GenerateRdpFileContents(string rdpFileSettings, string computer, string username,  int width = 1920, int height = 1200)
